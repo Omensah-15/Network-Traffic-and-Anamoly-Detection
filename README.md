@@ -1,65 +1,101 @@
+# 🚨 Machine Learning-Based Anomaly Detection in Network Traffic for Telecom Infrastructure Monitoring
 
-# 📡 Anomaly Detection in Network Traffic for Telecom Infrastructure
+This project leverages machine learning models to detect anomalies in network traffic for telecom and embedded systems. The goal is to identify malicious behavior in real time and support secure infrastructure monitoring, especially in IoT, industrial control systems, and critical networks.
 
-A machine learning-based system for detecting anomalies in network traffic using real-world simulated IoT and telecom data. This project aims to enhance the security of embedded and critical networked systems by identifying potential threats in real time.
+---
 
-## 📁 Dataset Overview
+## 📊 Dataset Description
 
-The dataset includes:
-- Normal and anomalous (malicious) traffic — labeled for supervised learning
-- Network traffic features:
-  - **Packet Size**
-  - **Inter-Arrival Time**
-  - **Protocol Type (TCP, UDP, ICMP)**
-  - **Source & Destination IPs**
-  - **TCP Flags**
-  - **Packet Count (5s window)**
-  - **Spectral Entropy & Frequency Band Energy** (via Wavelet Transform)
+The dataset simulates real-world networked environments with labeled traffic data (normal & malicious) suitable for supervised learning tasks.
 
-Target label:
-- `0` = Normal Traffic  
-- `1` = Anomalous Traffic
+### 🔑 Key Features:
+- **Packet Size** – Size of network packets in bytes
+- **Inter-Arrival Time** – Time between packet arrivals
+- **Protocol Type** – TCP, UDP, ICMP
+- **Source & Destination IP** – IPs involved in the connection
+- **TCP Flags** – Connection status
+- **Packet Count (5s window)** – Number of packets in 5 seconds
+- **Spectral Entropy** – Extracted using Wavelet Transform
+- **Frequency Band Energy** – Derived from Wavelet Transform
 
-## 🧠 Models & Performance
+### 🎯 Target Column:
+- `0` – Normal traffic  
+- `1` – Anomalous (malicious) traffic
 
-| Model            | Accuracy | Key Observations |
-|------------------|----------|------------------|
-| Isolation Forest | **0.864** | Best overall performance |
-| LOF              | 0.856    | Lower anomaly recall |
-| Autoencoder      | 0.856    | Limited anomaly detection |
+---
 
-> ⚠️ All models struggled with anomaly class recall (very low precision/recall for label `1`).
+## 🤖 Models & Evaluation
 
-## 🔍 Root Cause Insights
+Three unsupervised models were tested:
 
-- **Higher Inter-Arrival Times** in anomalies
-- **Increased Packet Count (5s)** during malicious activity
-- **Anomalous IPs**: `192.168.1.2`, `192.168.1.3`
-- **Frequent Protocols in Attacks**: TCP (44%), UDP (42%)
+### 1. **Isolation Forest**
+- **Accuracy**: `0.8640`
+- **Precision/Recall (Anomalies)**: `0.14 / 0.07`
 
-## 🚨 Actionable Takeaways
+### 2. **Local Outlier Factor (LOF)**
+- **Accuracy**: `0.8560`
+- **Precision/Recall (Anomalies)**: `0.06 / 0.03`
 
-- Deploy Isolation Forest model for real-time detection
-- Focus on:
-  - High packet sizes
-  - Low inter-arrival times
-  - Burst packet counts
-- Investigate suspicious IPs and protocol usage patterns
+### 3. **Autoencoder**
+- **Accuracy**: `0.8560`
+- **Precision/Recall (Anomalies)**: `0.06 / 0.03`
 
-## ⚙️ Sample Real-Time Prediction
+> ✅ **Best Performing Model:** Isolation Forest
 
-| Packet Size | Inter-Arrival | Packet Count (5s) | Predicted |
-|-------------|----------------|-------------------|-----------|
-| 500         | 0.10           | 8                 | ✅ Anomaly |
-| 1500        | 0.02           | 25                | ✅ Anomaly |
+---
 
-## 📌 Technologies Used
+## 🧠 Root Cause Analysis
 
-- Python
-- Scikit-learn
-- Keras (Autoencoder)
-- Wavelet Transform for feature extraction
+| Metric                        | Normal Mean | Anomaly Mean |
+|------------------------------|-------------|--------------|
+| Packet Size                  | 0.50        | 0.48         |
+| Inter-Arrival Time           | 0.51        | 0.57         |
+| Packet Count (5s)            | 0.50        | 0.58         |
+| Protocol Type in Anomalies   | TCP: 44%, UDP: 42% |
+| Top Anomalous Source IPs     | `192.168.1.2` (36%), `192.168.1.3` (54%) |
 
-## 🧾 Conclusion
+---
 
-This project shows the potential of unsupervised models like Isolation Forest in identifying network anomalies with decent accuracy. It also reveals the challenge of highly imbalanced datasets in anomaly detection and the need for feature engineering and monitoring strategies.
+## 🧪 Actionable Insights
+
+- **Anomalies Detected**: 50 out of 1000 packets
+- **True Anomalies Identified**: 7/100
+- Key triggers include:
+  - High packet size
+  - Low inter-arrival time
+  - Spike in packet counts
+
+### ⚠️ Potential Causes:
+- Network congestion  
+- DDoS attacks  
+- Faulty or misconfigured devices
+
+### 🛡️ Recommendation:
+Deploy Isolation Forest for real-time monitoring and continuously inspect flagged IPs and traffic patterns.
+
+---
+
+## 🚦 Simulated Real-Time Detection (Sample Output)
+
+| Packet Size | Inter-Arrival Time | Packet Count (5s) | Predicted |
+|-------------|--------------------|-------------------|-----------|
+| 500         | 0.10               | 8                 | Anomaly   |
+| 1200        | 0.03               | 20                | Anomaly   |
+| 450         | 0.12               | 7                 | Anomaly   |
+| 1500        | 0.02               | 25                | Anomaly   |
+| 600         | 0.09               | 9                 | Anomaly   |
+
+---
+
+## 🛠️ Technologies Used
+
+- Python  
+- Scikit-learn (Isolation Forest, LOF)  
+- Keras (Autoencoder)  
+- Wavelet Transform (Feature Engineering)
+
+---
+
+## 📌 Conclusion
+
+This project demonstrates how machine learning models can be applied to detect network anomalies in real-time. Although detecting rare anomalies is challenging due to data imbalance, Isolation Forest showed the most promise and can be deployed in telecom infrastructure for proactive threat monitoring.
