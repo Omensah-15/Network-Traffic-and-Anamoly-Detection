@@ -1,14 +1,14 @@
-# 🚨 Machine Learning-Based Anomaly Detection in Network Traffic for Telecom Infrastructure Monitoring
+# Machine Learning-Based Anomaly Detection in Network Traffic for Telecom Infrastructure Monitoring
 
 This project leverages machine learning models to detect anomalies in network traffic for telecom and embedded systems. The goal is to identify malicious behavior in real time and support secure infrastructure monitoring, especially in IoT, industrial control systems, and critical networks.
 
 ---
 
-## 📊 Dataset Description
+## Dataset Description
 
 The dataset simulates real-world networked environments with labeled traffic data (normal & malicious) suitable for supervised learning tasks.
 
-### 🔑 Key Features:
+### Key Features:
 - **Packet Size** – Size of network packets in bytes
 - **Inter-Arrival Time** – Time between packet arrivals
 - **Protocol Type** – TCP, UDP, ICMP
@@ -24,7 +24,7 @@ The dataset simulates real-world networked environments with labeled traffic dat
 
 ---
 
-## 🤖 Models & Evaluation
+## Models & Evaluation
 
 Three unsupervised models were tested:
 
@@ -44,7 +44,7 @@ Three unsupervised models were tested:
 
 ---
 
-## 🧠 Root Cause Analysis
+## Root Cause Analysis
 
 | Metric                        | Normal Mean | Anomaly Mean |
 |------------------------------|-------------|--------------|
@@ -87,7 +87,7 @@ Deploy Isolation Forest for real-time monitoring and continuously inspect flagge
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - Python  
 - Scikit-learn (Isolation Forest, LOF)  
@@ -99,3 +99,11 @@ Deploy Isolation Forest for real-time monitoring and continuously inspect flagge
 ## 📌 Conclusion
 
 This project demonstrates how machine learning models can be applied to detect network anomalies in real-time. Although detecting rare anomalies is challenging due to data imbalance, Isolation Forest showed the most promise and can be deployed in telecom infrastructure for proactive threat monitoring.
+
+---
+## 👨‍💻 Author
+
+**Obed Mensah**  
+*Data Scientist — Python | Power BI | SQL | Analytics*  
+📧 [heavenzlebron7@gmail.com](mailto:heavenzlebron7@gmail.com)
+
