@@ -96,7 +96,7 @@ Deploy Isolation Forest for real-time monitoring and continuously inspect flagge
 
 ---
 
-## 📌 Conclusion
+## Conclusion
 
 This project demonstrates how machine learning models can be applied to detect network anomalies in real-time. Although detecting rare anomalies is challenging due to data imbalance, Isolation Forest showed the most promise and can be deployed in telecom infrastructure for proactive threat monitoring.
 
